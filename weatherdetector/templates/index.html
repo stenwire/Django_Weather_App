@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+function validateForm() {
+  var x = document.forms["myForm"]["search"].value;
+  if (x == "" || x == null) {
+    alert("City must be filled out");
+    return false;
+  }
+}
+</script>
+<style>
+body {
+  font-family: Cambria;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  color: white;
+  border-radius: 25px;
+  padding: 0px;
+  font-size: 40px;
+  background: #203e4a;
+  text-align: center;
+}
+
+.details {
+   color: white;
+   margin:auto;
+   width:700px;
+   background: #203e4a;
+   border-radius: 25px;
+   padding-left: 20px;
+   padding-bottom: 20px;
+   padding-top: -2px;
+}
+
+
+form.example input[type=text] {
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  border-radius: 25px;
+  width: 20%;
+  padding: 10px;
+  background: #203e4a;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #1f1f1f;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
+<body>
+
+<div class="header" >
+    <h1>Weather Detector</h1>
+</div>
+
+<form name="myForm" method="post" class="example" action="" onsubmit="return validateForm()" style="margin:auto;max-width:700px">
+    {% csrf_token %}
+    <p>Search city below:</p>
+    <input type="text" placeholder="City..." name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+{% if data.country_code %}
+<div class="details">
+    <h1>{{search}}</h1>
+    <h2>country_code: {{data.country_code}}</h2>
+    <p>coordinate: {{data.coordinate}}</p>
+    <p>temp: {{data.temp}}</p>
+    <p>pressure: {{data.pressure}}</p>
+    <p>humidity: {{data.humidity}}</p>
+</div>
+{% endif %}
+
+</body>
+</html>
+
+
+
